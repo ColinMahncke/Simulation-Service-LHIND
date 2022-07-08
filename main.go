@@ -22,19 +22,19 @@ func main() {
 	host := functions.Getenv("host", "localhost:9093")
 
 	connarea, err := kafka.DialLeader(context.Background(), "tcp", host, "area_counting_measurement_events", 0)
+	defer connarea.Close()
 	if err != nil {
 		fmt.Println("failed to dial leader:", err)
 		return
 	}
 
 	connline, err := kafka.DialLeader(context.Background(), "tcp", host, "line_counting_measurement_events", 0)
+	defer connline.Close()
 	if err != nil {
 		fmt.Println("failed to dial leader:", err)
 		return
 	}
 
-	defer connarea.Close()
-	defer connline.Close()
 	//generate the number of persons on different sensors
 	for {
 		generateEvents(functions.GenerateAreaCount, "area_sensors", data.NewAreaCounting, connarea)
