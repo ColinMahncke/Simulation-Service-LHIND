@@ -18,7 +18,7 @@ func GetTimeToHours() float64 {
 func Getenv(name string, fallback string) string {
 	variable, found := os.LookupEnv(name)
 
-	if found == false {
+	if !found {
 		variable = fallback
 	}
 	return variable
