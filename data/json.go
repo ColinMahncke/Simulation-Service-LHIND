@@ -1,7 +1,6 @@
 package data
 
 import (
-	"math"
 	"time"
 )
 
@@ -24,23 +23,24 @@ func NewAreaCounting(externalId string, value int, measurementTimestamp time.Tim
 
 type LineCounting struct {
 	ExternalId           string    `json:"externalId"`
-	Value                int       `json:"value"`
+	ValueIn              *int      `json:"valueIn"`
+	ValueOut             *int      `json:"valueOut"`
 	Unit                 string    `json:"unit"`
 	MeasurementTimestamp time.Time `json:"measurement_timestamp"`
-	MeasurementType      string    `json:"measurement_type"`
 }
 
 func NewLineCounting(externalId string, value int, measuremntTimestamp time.Time, unit string) *LineCounting {
-	var measurementType string
+	var valueIn *int
+	var valueOut *int
 	if value == 0 {
 		return nil
 	}
 	if value < 0 {
-		measurementType = "flow_out"
+		valueOut = &value
 	} else {
-		measurementType = "flow_in"
+		valueIn = &value
 	}
-	l := LineCounting{externalId, int(math.Abs(float64(value))), unit, measuremntTimestamp, measurementType}
+	l := LineCounting{externalId, valueIn, valueOut, unit, measuremntTimestamp}
 
 	return &l
 }
