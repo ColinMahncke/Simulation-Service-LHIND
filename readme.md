@@ -12,6 +12,16 @@ The Simulation Service generates random data for different sensors and uploads t
 - ->The data will be uploaded on a Kafka host, which is configurable
 
 
+## GenerateEvents
+
+The Generic GenerateEvents makes up two different functions. The GenerateAreaCount and the GenerateLineCount. Both of them generate random data. 
+- GenerateAreaCount:    Counts at a moment every                   object in range of the                     sensor
+
+- GenerateLineCount:    Counts the whole time the                     object which cross the line                    in both directions
+
+The value gets connectet to other Informations (SensorName, measurement_timestamp, unit) and then the whole information is uploaded to kafka.
+
+
 
 ## Enviromental variables
 - interval
