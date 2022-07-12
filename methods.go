@@ -15,7 +15,6 @@ func generateEvents[Measurement any](function func(float64) int, sensorEnvName s
 	events := make([]Measurement, 0)
 
 	numbersensors := functions.Getenv(sensorEnvName, "kamera")
-	fmt.Println(s.Split(numbersensors, ","))
 	for _, sensor := range s.Split(numbersensors, ",") {
 		currentValue := function(functions.GetTimeToHours())
 		event = generateMeasurement(sensor, currentValue, time.Now(), "person")
