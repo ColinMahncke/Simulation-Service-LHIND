@@ -36,6 +36,7 @@ func main() {
 	}
 	messagecount := 0
 	lastmessagecount := time.Now()
+	starttime := time.Now()
 	//generate the number of persons on different sensors
 	for {
 
@@ -52,8 +53,7 @@ func main() {
 		time.Sleep(time.Duration(numberinterval) * time.Millisecond)
 
 		if lastmessagecount.Add(time.Second).Before(time.Now()) {
-			fmt.Println("messages per second:", messagecount)
-			messagecount = 0
+			fmt.Println("messages per second:", float64(messagecount)/float64(time.Now().Unix()-starttime.Unix()), "total messages:", messagecount)
 			lastmessagecount = time.Now()
 
 		}
