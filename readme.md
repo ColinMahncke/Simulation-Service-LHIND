@@ -34,5 +34,7 @@ The value gets connectet to other Informations (SensorName, measurement_timestam
 - line_min_rand
 - line_max_rand
 
+## Caution
 
+Total message count is limited to 32bit.
 
