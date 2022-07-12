@@ -23,7 +23,7 @@ The value gets connectet to other Informations (SensorName, measurement_timestam
 
 
 
-## Enviromental variables
+## Environment variables
 - interval
 - area_sensors
 - line_sensors

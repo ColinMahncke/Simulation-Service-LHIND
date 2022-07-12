@@ -9,7 +9,7 @@ import (
 	"github.com/joho/godotenv"
 )
 
-//loads the enviroment variables
+//loads the environment variables
 
 func Load() error {
 	err := loadEnv()
