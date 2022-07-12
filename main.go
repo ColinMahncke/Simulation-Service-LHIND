@@ -34,18 +34,28 @@ func main() {
 		fmt.Println("failed to dial leader:", err)
 		return
 	}
-
+	messagecount := 0
+	lastmessagecount := time.Now()
 	//generate the number of persons on different sensors
 	for {
-		generateEvents(functions.GenerateAreaCount, "area_sensors", data.NewAreaCounting, connarea)
-		generateEvents(functions.GenerateLineCount, "line_sensors", data.NewLineCounting, connline)
+
+		messagecount += generateEvents(functions.GenerateAreaCount, "area_sensors", data.NewAreaCounting, connarea)
+
+		messagecount += generateEvents(functions.GenerateLineCount, "line_sensors", data.NewLineCounting, connline)
 		//buffertime between dataflow
 		numberinterval, error := strconv.Atoi(functions.Getenv("interval", "2"))
 		if error != nil {
 			fmt.Println("error:", error)
 			return
 		}
+
 		time.Sleep(time.Duration(numberinterval) * time.Millisecond)
 
+		if lastmessagecount.Add(time.Second).Before(time.Now()) {
+			fmt.Println("messages per second:", messagecount)
+			messagecount = 0
+			lastmessagecount = time.Now()
+
+		}
 	}
 }
